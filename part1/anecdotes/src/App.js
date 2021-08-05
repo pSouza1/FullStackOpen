@@ -31,12 +31,33 @@ const App = () => {
     )
   }
 
+  const highestVotes = () => {
+    
+    let highest = points[0]
+    let highestIndex = 0
+
+    for (let index = 0; index < points.length; index++) {
+      if (points[index]>highest)
+      {
+      highest = points[index]
+      highestIndex = index
+    }
+  }
+  
+  return(
+    highestIndex
+  )
+  }
+
+
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState([0,0,0,0,0,0,0])
 
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
+
       <p>{anecdotes[selected]}</p>
       <p>has {points[selected]} votes</p>
  
@@ -49,6 +70,13 @@ const App = () => {
           next anecdote
         </button>
       </p>
+
+
+      <h1>Anecdote with most votes</h1>
+
+      <p>{anecdotes[highestVotes()]}</p>
+      <p>has {points[highestVotes()]} votes</p>
+
     </div>
   )
 }
