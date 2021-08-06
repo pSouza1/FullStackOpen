@@ -28,26 +28,35 @@ const Course = (props) => {
      <div>
       <Header course={props.course} />
       <Content course={props.course} />
-      {/*<Total course={props.course} />*/}
+      <Total course={props.course} />
     </div>
   )
 }
 
 
-{/*
+
 const Total = (props) => {
+
+  let sum = 0;
+
+  console.log(props.course.parts.length)
+
+  for (let index = 0; index < props.course.parts.length; index++) {
+
+    sum = sum + props.course.parts[index].exercises;    
+ 
+  }
+
+  
   return (
     <div>
       <p>
-        Number of exercises{" "}
-        {props.parts[0].exercises +
-          props.parts[1].exercises +
-          props.parts[2].exercises}
+        <b>Total of {sum} exercises</b>
       </p>
     </div>
   );
 };
-*/}
+
 
 
 const App = () => {
