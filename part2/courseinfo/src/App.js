@@ -37,25 +37,18 @@ const Course = (props) => {
 
 const Total = (props) => {
 
-  let sum = 0;
-
-  console.log(props.course.parts.length)
-
-  for (let index = 0; index < props.course.parts.length; index++) {
-
-    sum = sum + props.course.parts[index].exercises;    
- 
-  }
-
+  let totalEx = props.course.parts.reduce((sum, part) => (sum + part.exercises),0)
   
+
   return (
     <div>
       <p>
-        <b>Total of {sum} exercises</b>
+        <b>Total of {totalEx} exercises</b>
       </p>
     </div>
-  );
-};
+  )
+}
+
 
 
 
