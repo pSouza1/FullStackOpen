@@ -7,12 +7,20 @@ const App = () => {
   const addNames = (event) => {
     event.preventDefault();
 
-    const personObject = {
-      name: newName,
-    };
+    let duplicates = persons.find((person) => person.name === newName);
 
-    setPersons(persons.concat(personObject));
-    setNewName("");
+    if (duplicates !== undefined) {
+
+      window.alert(newName + ' is already added to phonebook');
+
+    } else {
+      const personObject = {
+        name: newName,
+      };
+
+      setPersons(persons.concat(personObject));
+      setNewName("");
+    }
   };
 
   const handlePersonChange = (event) => {
@@ -34,7 +42,6 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
-
 
       <h2>Numbers</h2>
 
