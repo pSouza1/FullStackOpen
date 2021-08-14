@@ -1,49 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import SelectedCountry from "./SelectedCountry";
 
 const Countries = (props) => {
+  const [selectedIndex, setSelectedIndex] = useState("");
 
-    if(props.filteredCountries.length>10){
-        return(
-            <p>Too many matches, specify another filter</p>
-        )
-    }
+  const handleClick = (index) => {
+    console.log(index);
+    setSelectedIndex(index);
+  };
 
 
+  if (props.filteredCountries.length > 10) {
+    return <p>Too many matches, specify another filter</p>;
+  }
 
-    if(props.filteredCountries.length===1){         
-        return(
+  if (props.filteredCountries.length === 1 || selectedIndex !== "") {
+    if (props.filteredCountries.length === 1) {
+      return (
         <div>
-        <h1> {props.filteredCountries[0].name} </h1>
-
-        <p>Capital: {props.filteredCountries[0].capital}</p>
-        <p>Population: {props.filteredCountries[0].population}</p>
-
-
-        <h2>Languages: </h2>
-        
-        
-         <ul>
-         {props.filteredCountries[0].languages.map((language) => (
-        <li key={language.name}>
-        {" "}
-        {language.name}
-        </li>
-        ))}
-         </ul>
-
-         <img src={props.filteredCountries[0].flag} alt="Flag" width="300" height="200"/>
-
+          <SelectedCountry country={props.filteredCountries[0]} />
         </div>
-        )
+      );
     }
 
+    return (
+      <div>
+        <SelectedCountry country={props.filteredCountries[selectedIndex]} />
+      </div>
+    );
+  }
 
 
   return (
     <ul>
-      {props.filteredCountries.map((country) => (
+      {props.filteredCountries.map((country, index) => (
         <li key={country.name}>
-          {country.name}
+          {country.name}{" "}
+          <button
+            onClick={() => {
+              handleClick(index);
+            }}
+          >
+            {" "}
+            show{" "}
+          </button>
         </li>
       ))}
     </ul>
