@@ -1,6 +1,8 @@
 import React from "react";
+import GetWeather from './GetWeather'
 
 const SelectedCountry = (props) => {
+
   return (
     <div>
       <h1> {props.country.name} </h1>
@@ -22,7 +24,10 @@ const SelectedCountry = (props) => {
         width="300"
         height="200"
       />
-    </div>
+
+      <GetWeather country = {props.country}/>
+      
+      </div>
   );
 };
 
