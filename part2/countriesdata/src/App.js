@@ -3,10 +3,6 @@ import axios from "axios";
 import Filter from "./components/Filter";
 import Countries from './components/Countries'
 
-const App = () => {
-  const [newSearch, setNewSearch] = useState("");
-  const [countries, setCountries] = useState([]);
-
 
   useEffect(() => {
     console.log('effect')

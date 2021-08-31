@@ -8,7 +8,8 @@ const GetWeather = (props) => {
     useEffect(() => {
         console.log('effect getWeather')
         axios
-          .get(`http://api.weatherstack.com/current?access_key=${process.env.REACT_APP_API_KEY}&query=${props.country.capital}`)
+          .get(`http://api.weatherstack.com/current?access_key=
+          ${process.env.REACT_APP_API_KEY}&query=${props.country.capital}`)
 
           .then(response => {
             console.log('promise fulfilled')

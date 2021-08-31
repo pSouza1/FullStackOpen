@@ -34,8 +34,7 @@ const Countries = (props) => {
   return (
     <ul>
       {props.filteredCountries.map((country, index) => (
-        <li key={country.name}>
-          {country.name}{" "}
+        <li key={country.name}>  {country.name} 
           <button
             onClick={() => {
               handleClick(index);
