@@ -17,10 +17,18 @@ const update = (id, newObject) => {
   return request.then((response) => response.data);
 };
 
+const deleteIndex = (id) => {
+    console.log("Vai eliminar!")
+    const request = axios.delete(`${baseUrl}/${id}`)
+    console.log("Está eliminado!")
+    return request.then((response) => response.data);
+  };
+
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 
 export default {
   getAll: getAll,
   create: create,
   update: update,
+  deleteIndex: deleteIndex
 };

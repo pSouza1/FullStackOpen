@@ -45,6 +45,18 @@ const App = () => {
     }
   }
 
+  const deleteName = (id) => {
+    if (window.confirm("Delete " + persons[id-1].name + " ?")) {
+
+      numbersService
+      .deleteIndex(id)
+      .then(() => {
+        setPersons(persons.filter(person=> person.id !== id))
+      })
+
+    }
+  }
+
   const handlePersonChange = (event) => {
     console.log(event.target.value);
     setNewName(event.target.value);
@@ -60,6 +72,12 @@ const App = () => {
     setNewSearch(event.target.value);
 };
 
+  const handleDelete = (index) => {
+    console.log(index);
+    deleteName(index)
+};
+
+
 let filteredPersons = persons.filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()))
 
   return (
@@ -74,7 +92,7 @@ let filteredPersons = persons.filter(person => person.name.toLowerCase().include
 
       <h2>Numbers</h2>
 
-      <Persons filteredPersons={filteredPersons}/>
+      <Persons filteredPersons={filteredPersons} handleDelete={handleDelete}/>
 
      </div>
   );
