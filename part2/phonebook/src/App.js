@@ -3,12 +3,15 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import numbersService from './services/numbers'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newSearch, setNewSearch] = useState("");
+
+  const [addedMessage, setAddedMessage] = useState(null)
 
 
   useEffect(() => {
@@ -53,6 +56,7 @@ const App = () => {
       .create(personObject)
         .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
+        setAddedMessage("Added " + personObject.name)
         setNewName("")
         setNewNumber("")
         })
@@ -97,6 +101,8 @@ let filteredPersons = persons.filter(person => person.name.toLowerCase().include
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={addedMessage} />
 
       <Filter newSearch={newSearch} handleSearchChange={handleSearchChange}/>
 
