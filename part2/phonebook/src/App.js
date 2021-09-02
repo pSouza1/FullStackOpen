@@ -11,7 +11,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [newSearch, setNewSearch] = useState("");
 
-  const [addedMessage, setAddedMessage] = useState(null)
+  const [message, setMessage] = useState(null)
+  const [classNameStyle, setClassNameStyle] = useState(null)
 
 
   useEffect(() => {
@@ -44,6 +45,11 @@ const App = () => {
         .update(changedPerson.id, changedPerson)
         .then(returnedPerson => {
         setPersons(persons.map(p => p.id !== changedPerson.id ? p : returnedPerson))
+        setMessage("Updated " + returnedPerson.name)
+        setClassNameStyle("added")
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
       }
     } else {
@@ -56,11 +62,12 @@ const App = () => {
       .create(personObject)
         .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
-        setAddedMessage("Added " + personObject.name)
+        setMessage("Added " + personObject.name)
+        setClassNameStyle("added")
         setNewName("")
         setNewNumber("")
         setTimeout(() => {
-          setAddedMessage(null)
+          setMessage(null)
         }, 5000)
         })
     }
@@ -74,7 +81,14 @@ const App = () => {
       .then(() => {
         setPersons(persons.filter(person=> person.id !== id))
       })
-
+      .catch( () => {
+        setMessage(
+          `Information of ${persons[id-1].name} has already been removed from server`
+        )
+        setClassNameStyle("removed")
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)})
     }
   }
 
@@ -105,7 +119,7 @@ let filteredPersons = persons.filter(person => person.name.toLowerCase().include
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={addedMessage} />
+      <Notification message={message} classNameStyle={classNameStyle} />
 
       <Filter newSearch={newSearch} handleSearchChange={handleSearchChange}/>
 
