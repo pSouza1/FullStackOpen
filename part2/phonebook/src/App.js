@@ -59,6 +59,9 @@ const App = () => {
         setAddedMessage("Added " + personObject.name)
         setNewName("")
         setNewNumber("")
+        setTimeout(() => {
+          setAddedMessage(null)
+        }, 5000)
         })
     }
   }
