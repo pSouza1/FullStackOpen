@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const morgan = require('morgan')
 
+morgan.token('bodyContent', function (req, res) { return req.body })
+
 app.use(express.json())
 app.use(morgan('tiny'))
   
@@ -31,7 +33,13 @@ let persons = [
 ];
 
 
-app.get('/api/persons', (request, response) => {
+app.get('/api/persons', (request, response, next)=>
+{
+  console.log("Entrei neste!")
+  return next()
+}, 
+
+(request, response) => {
     response.json(persons)
   })
 
@@ -66,7 +74,13 @@ const generateId = () => {
   return id
 }
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', morgan( (tokens, request, response) => {
+  return[
+    JSON.stringify(tokens.bodyContent(request, response))
+  ].join(' ')
+}),
+
+(request, response) => {
   const body = request.body
 
   if (!body.name || !body.number) {
