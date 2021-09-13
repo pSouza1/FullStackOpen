@@ -6,7 +6,7 @@ morgan.token('bodyContent', function (req, res) { return req.body })
 
 app.use(express.json())
 app.use(morgan('tiny'))
-app.use(express.static('./build'))
+app.use(express.static('/part3/build'))
 
 
 let persons = [
