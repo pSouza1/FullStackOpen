@@ -1,7 +1,8 @@
 require('dotenv').config()
 const express = require("express");
 const app = express();
-const morgan = require('morgan')
+const morgan = require('morgan');
+let persons = []
 
 
 morgan.token('bodyContent', function (req, res) { return req.body })
@@ -60,34 +61,22 @@ const generateId = () => {
   return id
 }
 
-app.post('/api/persons', morgan( (tokens, request, response) => {
-  return[
-    JSON.stringify(tokens.bodyContent(request, response))
-  ].join(' ')
-}),
 
-(request, response) => {
+app.post('/api/persons', (request, response) => {
+ 
   const body = request.body
 
-  if (!body.name || !body.number) {
-    return response.status(400).json({ 
-      error: 'name or number missing' 
-    })
+  if (body.name === undefined || body.number === undefined) {
+    return response.status(400).json({ error: 'content missing' })
   }
 
-  if (persons.find(person => person.name === body.name)) {
-    return response.status(406).json({ 
-    error: 'name must be unique' 
-    })
-  }
-
-  const person = {
+  const person = new Person({
     name: body.name,
-    number: body.number, 
-    id: generateId(),
-  }
+    number: body.number
+  })
+  console.log(person)
 
-  persons = persons.concat(person)
-
-  response.json(person)
+  person.save().then(savedPerson => {
+  response.json(savedPerson)
+})
 })
