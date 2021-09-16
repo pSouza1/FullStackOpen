@@ -37,10 +37,15 @@ app.get("/api/persons", (request, response, next) => {
 
 
 app.get("/info", (request, response) => {
+
   var dt = new Date();
-  response.send(
+  
+  Person.find({}).then(persons => {
+    persons.map(person => person.toJSON());
+    response.send(
     "<p>Phonebook has info for " + persons.length + " people" + "<p>" + dt
-  );
+    )}
+  )
 });
 
 
@@ -66,6 +71,7 @@ app.delete("/api/persons/:id", (request, response, next) => {
 });
 
 
+
 app.post("/api/persons", (request, response) => {
   const body = request.body;
 
@@ -84,6 +90,7 @@ app.post("/api/persons", (request, response) => {
   });
 });
 
+
 app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
 
@@ -91,6 +98,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     name: body.name,
     number: body.number,
   }
+
 
   Person.findByIdAndUpdate(request.params.id, person, { new: true })
     .then(updatedPerson => {
