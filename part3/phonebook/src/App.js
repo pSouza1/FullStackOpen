@@ -74,7 +74,10 @@ const App = () => {
   }
 
   const deleteName = (id) => {
-    if (window.confirm("Delete " + persons[id-1].name + " ?")) {
+    
+    const personToDelete = persons.find(person => person.id === id)
+
+    if (window.confirm("Delete " + personToDelete.name + " ?")) {
 
       numbersService
       .deleteIndex(id)
@@ -83,7 +86,7 @@ const App = () => {
       })
       .catch( () => {
         setMessage(
-          `Information of ${persons[id-1].name} has already been removed from server`
+          `Information of ${personToDelete.name} has already been removed from server`
         )
         setClassNameStyle("removed")
         setTimeout(() => {
