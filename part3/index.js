@@ -85,9 +85,11 @@ app.post("/api/persons", (request, response) => {
   });
   console.log(person);
 
-  person.save().then((savedPerson) => {
-    response.json(savedPerson);
-  });
+  person.save()
+  .then((savedPerson) => savedPerson.toJSON())
+  .then((savedPerson) => {response.json(savedPerson)
+  })
+  .catch(error => next(error))
 });
 
 
