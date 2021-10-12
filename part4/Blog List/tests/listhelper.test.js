@@ -91,7 +91,7 @@ describe('total likes', () => {
     })
 
 
-      describe('most likes', () => {
+      describe('favoriteBlog', () => {
 
         const bigList = [
           {
@@ -152,7 +152,7 @@ describe('total likes', () => {
   }
   
         test('of a bigger list is calculated right', () => {
-          const result = listHelper.mostLikes(bigList)
+          const result = listHelper.favoriteBlog(bigList)
           expect(result).toEqual(mostLikedObject)
         })
   })

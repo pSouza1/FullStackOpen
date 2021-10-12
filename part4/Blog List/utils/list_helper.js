@@ -12,7 +12,7 @@ const totalLikes = (blogs) =>{
     : blogs.reduce(reducer, 0)
 }  
   
-const mostLikes = (blogs) =>{
+const favoriteBlog = (blogs) =>{
   if (blogs.length===0){return{}} else {
   
   let topLikes = blogs[0].likes
@@ -38,5 +38,5 @@ const mostLikes = (blogs) =>{
   module.exports = {
     dummy,
     totalLikes,
-    mostLikes
+    favoriteBlog
   }
