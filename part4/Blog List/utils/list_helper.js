@@ -24,7 +24,14 @@ const mostLikes = (blogs) =>{
       topIndex = index
     }
   }
-  return blogs[topIndex].likes
+  const mostLikesObject = 
+  {
+    title: blogs[topIndex].title,
+    author: blogs[topIndex].author,
+    likes: blogs[topIndex].likes
+  }
+
+  return (mostLikesObject)
   }
 }
 

@@ -143,9 +143,16 @@ describe('total likes', () => {
             __v: 0
           }  
         ]
+
+        const mostLikedObject = 
+  {
+    title: "Canonical string reduction",
+    author: "Edsger W. Dijkstra",
+    likes: 12
+  }
   
         test('of a bigger list is calculated right', () => {
           const result = listHelper.mostLikes(bigList)
-          expect(result).toEqual(12)
+          expect(result).toEqual(mostLikedObject)
         })
   })
