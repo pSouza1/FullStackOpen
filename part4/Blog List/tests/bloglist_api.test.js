@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
+const helper = require('./listhelper.test')
 
 const api = supertest(app)
 
@@ -19,6 +20,11 @@ const initialBlogs = [
         url: "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
         likes: 5
     }]
+
+    const blogsInDb = async () => {
+      const blogs = await Blog.find({})
+      return blogs.map(blog => blog.toJSON())
+    }
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -42,6 +48,34 @@ test('blogs are returned as json', async () => {
     const blogs = await Blog.find({})
     expect(blogs[0]._id).toBeDefined()
   })
+
+
+  describe('Adding a new blog', () => {
+    test('A new blog can be added ', async () => {
+      const newBlog = {
+        title: "Type wars",
+        author: "Robert C. Martin",
+        url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+        likes: 2,
+      }
+  
+      await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+  
+      const blogsAtEnd = await blogsInDb()
+      expect(blogsAtEnd).toHaveLength(initialBlogs.length + 1)
+  
+      const contents = blogsAtEnd.map(n => n.title)
+      expect(contents).toContain(
+        'Type wars'
+      )
+    })
+  })
+
+
 
   afterAll(() => {
     mongoose.connection.close()
