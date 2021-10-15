@@ -73,7 +73,25 @@ test('blogs are returned as json', async () => {
         'Type wars'
       )
     })
-  })
+ 
+    test('If the likes property is missing, it will default to 0 ', async () => {
+      const newBlog = {
+        title:"First class tests",
+        author:"Robert C. Martin",
+        url:"http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
+      }
+  
+      await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+  
+      const blogsAtEnd = await blogsInDb()
+      const addedBlog = await blogsAtEnd.find(blog => blog.title === "First class tests")
+      expect(addedBlog.likes).toBe(0)
+    })
+   })
 
 
 
