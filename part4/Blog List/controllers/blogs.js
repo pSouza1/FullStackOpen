@@ -17,11 +17,17 @@ blogsRouter.post("/", (request, response) => {
     body.likes = 0
 }
 
-  const blog = new Blog(body);
+if ((!body.title) || (!body.url)) {
+  response.status(400).end()
+}else{
+
+
+    const blog = new Blog(body);
 
   blog.save().then((result) => {
     response.status(201).json(result);
-  });
+  })
+}
 });
 
 

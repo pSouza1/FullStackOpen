@@ -94,6 +94,22 @@ test('blogs are returned as json', async () => {
    })
 
 
+   test('If title and url are missing, respond with 400 bad request', async () => {
+    const newBlog = {
+      author: "Michael Chan",
+      likes: 7,
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+
+    const blogsAtEnd = await blogsInDb()
+
+    expect(blogsAtEnd).toHaveLength(initialBlogs.length)
+  })
+
 
   afterAll(() => {
     mongoose.connection.close()
