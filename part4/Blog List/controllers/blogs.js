@@ -3,15 +3,16 @@ const Blog = require("../models/blog");
 
 
 blogsRouter.get("/", (request, response) => {
-  Blog.find({}).then((blogs) => {
-    response.json(blogs);
-  });
-});
+  const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
+  response.json(blogs.map(blog => blog.toJSON()))
+})
 
 
 blogsRouter.post("/", (request, response) => {
 
   const body = request.body
+  const users = await User.find({})
+  const randomUser = users[Math.floor(Math.random() * users.length)]
 
   if (!body.likes) {
     body.likes = 0
@@ -26,6 +27,14 @@ if ((!body.title) || (!body.url)) {
     response.status(201).json(result);
   })
 }
+
+try {
+  randomUser.blogs = randomUser.blogs.concat(savedBlog._id)
+  await randomUser.save()
+  logger.info(`blog linked to user ${randomUser.username}`)
+  response.json(savedBlog.toJSON())
+} catch(exception) {
+  next(exception)}
 });
 
 
