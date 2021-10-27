@@ -5,6 +5,8 @@ import loginService from './services/login'
 
 
 
+
+
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
@@ -13,6 +15,26 @@ const App = () => {
   const [password, setPassword] = useState('') 
 
   const [user, setUser] = useState(null)
+
+  const [title, setTitle] = useState("")
+  const [author, setAuthor] = useState("")
+  const [url, setUrl] = useState("")
+
+  const addBlog = (event) => {
+    event.preventDefault()
+
+    const blogObject = {
+      "title": title,
+      "author": author,
+      "url": url
+    }
+
+    blogService.create(blogObject).then(returnedBlog =>
+      setBlogs(blogs.concat(returnedBlog))
+    )
+
+    setTimeout(() => { }, 5000)
+  }
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -59,6 +81,18 @@ const App = () => {
     setUser(null)
   }
 
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value)
+  }
+
+  const handleAuthorChange = (event) => {
+    setAuthor(event.target.value)
+  }
+
+  const handleUrlChange = (event) => {
+    setUrl(event.target.value)
+  }
+
   const loginForm = () => (
     <div>
     <h2>log in to application</h2>
@@ -96,7 +130,21 @@ const App = () => {
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
+
+    <div>
+      <h2>create new</h2>
+      <form onSubmit={addBlog}>
+        <div>title: <input onChange={handleTitleChange} value={title}/></div>
+        <div>author: <input onChange={handleAuthorChange} value={author}/></div>
+        <div>title: <input onChange={handleUrlChange} value={url}/></div>
+        <button type="submit">create</button>
+      </form>
     </div>
+
+      
+    </div>
+
+    
   )
 
   return (
