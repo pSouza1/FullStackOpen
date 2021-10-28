@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login' 
-
-
-
+import Notification from './components/Notification'
 
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [errorMessage, setErrorMessage] = useState(null)
+
+  const [notificationMessage, setNotificationMessage] = useState(null)
 
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('') 
@@ -19,8 +18,9 @@ const App = () => {
   const [title, setTitle] = useState("")
   const [author, setAuthor] = useState("")
   const [url, setUrl] = useState("")
+  
 
-  const addBlog = (event) => {
+  const addBlog = async (event) => {
     event.preventDefault()
 
     const blogObject = {
@@ -29,11 +29,17 @@ const App = () => {
       "url": url
     }
 
-    blogService.create(blogObject).then(returnedBlog =>
-      setBlogs(blogs.concat(returnedBlog))
-    )
-
-    setTimeout(() => { }, 5000)
+    try{
+      blogService.create(blogObject).then(returnedBlog =>
+        setBlogs(blogs.concat(returnedBlog))
+      )
+      setNotificationMessage(`a new blog ${blogObject.title} by ${blogObject.author} added`)
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 3000)
+    }catch(exception){
+      setNotificationMessage(null)
+    }
   }
 
   useEffect(() => {
@@ -68,10 +74,10 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Wrong credentials')
+      setNotificationMessage('Wrong Username or Password')
       setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+        setNotificationMessage(null)
+      }, 3000)
     }
   }
 
@@ -136,7 +142,7 @@ const App = () => {
       <form onSubmit={addBlog}>
         <div>title: <input onChange={handleTitleChange} value={title}/></div>
         <div>author: <input onChange={handleAuthorChange} value={author}/></div>
-        <div>title: <input onChange={handleUrlChange} value={url}/></div>
+        <div>url: <input onChange={handleUrlChange} value={url}/></div>
         <button type="submit">create</button>
       </form>
     </div>
@@ -149,6 +155,7 @@ const App = () => {
 
   return (
     <div>
+      <p><Notification message={notificationMessage}/></p>
       {user === null && loginForm()}
       {user !== null && blogList()}
     </div>
