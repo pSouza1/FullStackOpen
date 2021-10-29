@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login' 
 import Notification from './components/Notification'
+import LoginForm from './components/Login'
 
 
 const App = () => {
@@ -18,6 +19,8 @@ const App = () => {
   const [title, setTitle] = useState("")
   const [author, setAuthor] = useState("")
   const [url, setUrl] = useState("")
+
+  const [createBlogVisible, setCreateBlogVisible] = useState(false)
   
 
   const addBlog = async (event) => {
@@ -34,6 +37,7 @@ const App = () => {
         setBlogs(blogs.concat(returnedBlog))
       )
       setNotificationMessage(`a new blog ${blogObject.title} by ${blogObject.author} added`)
+      setCreateBlogVisible(false)
       setTimeout(() => {
         setNotificationMessage(null)
       }, 3000)
@@ -99,34 +103,10 @@ const App = () => {
     setUrl(event.target.value)
   }
 
-  const loginForm = () => (
-    <div>
-    <h2>log in to application</h2>
+  const hideWhenVisible = { display: createBlogVisible ? 'none' : '' }
+  const showWhenVisible = { display: createBlogVisible ? '' : 'none' }
 
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-          <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-          <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>
-    </div>      
-  )
-
+  
   const blogList = () => (
     <div>
       <h2>blogs</h2>
@@ -137,7 +117,7 @@ const App = () => {
         <Blog key={blog.id} blog={blog} />
       )}
 
-    <div>
+    <div style={showWhenVisible}>
       <h2>create new</h2>
       <form onSubmit={addBlog}>
         <div>title: <input onChange={handleTitleChange} value={title}/></div>
@@ -145,6 +125,11 @@ const App = () => {
         <div>url: <input onChange={handleUrlChange} value={url}/></div>
         <button type="submit">create</button>
       </form>
+      <button onClick={() => setCreateBlogVisible(false)}>cancel</button>
+    </div>
+
+    <div style={hideWhenVisible}>
+    <button onClick={() => setCreateBlogVisible(true)}>create new blog</button>
     </div>
 
       
@@ -156,7 +141,7 @@ const App = () => {
   return (
     <div>
       <p><Notification message={notificationMessage}/></p>
-      {user === null && loginForm()}
+      {user === null && <LoginForm handleLogin={handleLogin} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>}
       {user !== null && blogList()}
     </div>
   )
