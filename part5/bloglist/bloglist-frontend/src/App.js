@@ -116,26 +116,26 @@ const App = () => {
       <p>{user.name} logged in
       <button onClick={handleLogout} type="submit">logout</button></p>
 
-      <div style={hideWhenVisible}>
-    <button onClick={() => setCreateBlogVisible(true)}>create new blog</button>
-    </div>
+      <p style={hideWhenVisible}>
+      <button onClick={() => setCreateBlogVisible(true)}>create new blog</button>
+      </p>
 
-    <p>
+      <div>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog}/>
       )}
-    </p>
+      </div>
 
-    <div style={showWhenVisible}>
+      <div style={showWhenVisible}>
       <BlogForm addBlog={addBlog} handleTitleChange={handleTitleChange} title={title} handleAuthorChange={handleAuthorChange} author={author} handleUrlChange={handleUrlChange} url={url} setCreateBlogVisible={setCreateBlogVisible} />
-    </div>
+      </div>
 
     </div>   
   )
 
   return (
     <div>
-      <p><Notification message={notificationMessage}/></p>
+      <div><Notification message={notificationMessage}/></div>
       {user === null && <LoginForm handleLogin={handleLogin} username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>}
       {user !== null && blogList()}
     </div>
