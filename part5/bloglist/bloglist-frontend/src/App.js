@@ -5,6 +5,7 @@ import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/Login'
 import BlogForm from './components/BlogForm'
+import './App.css'
 
 
 const App = () => {
@@ -112,24 +113,24 @@ const App = () => {
     <div>
       <h2>blogs</h2>
 
-      <p>{user.name} logged in</p>
-      <button onClick={handleLogout} type="submit">logout</button>
+      <p>{user.name} logged in
+      <button onClick={handleLogout} type="submit">logout</button></p>
+
+      <div style={hideWhenVisible}>
+    <button onClick={() => setCreateBlogVisible(true)}>create new blog</button>
+    </div>
+
+    <p>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
+    </p>
 
     <div style={showWhenVisible}>
       <BlogForm addBlog={addBlog} handleTitleChange={handleTitleChange} title={title} handleAuthorChange={handleAuthorChange} author={author} handleUrlChange={handleUrlChange} url={url} setCreateBlogVisible={setCreateBlogVisible} />
     </div>
 
-    <div style={hideWhenVisible}>
-    <button onClick={() => setCreateBlogVisible(true)}>create new blog</button>
-    </div>
-
-      
-    </div>
-
-    
+    </div>   
   )
 
   return (

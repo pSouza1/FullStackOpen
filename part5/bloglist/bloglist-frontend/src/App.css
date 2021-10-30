@@ -17,3 +17,12 @@
     padding: 10px;
     margin-bottom: 10px;
   }
+
+  .blogBorder {
+    border-style: solid;
+    border-width: thin;
+    padding-top: 10;
+    padding-left: 2;
+    border-width: 1;
+    margin-bottom: 5
+  }
