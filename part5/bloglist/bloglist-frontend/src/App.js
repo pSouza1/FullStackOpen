@@ -4,6 +4,7 @@ import blogService from './services/blogs'
 import loginService from './services/login' 
 import Notification from './components/Notification'
 import LoginForm from './components/Login'
+import BlogForm from './components/BlogForm'
 
 
 const App = () => {
@@ -118,14 +119,7 @@ const App = () => {
       )}
 
     <div style={showWhenVisible}>
-      <h2>create new</h2>
-      <form onSubmit={addBlog}>
-        <div>title: <input onChange={handleTitleChange} value={title}/></div>
-        <div>author: <input onChange={handleAuthorChange} value={author}/></div>
-        <div>url: <input onChange={handleUrlChange} value={url}/></div>
-        <button type="submit">create</button>
-      </form>
-      <button onClick={() => setCreateBlogVisible(false)}>cancel</button>
+      <BlogForm addBlog={addBlog} handleTitleChange={handleTitleChange} title={title} handleAuthorChange={handleAuthorChange} author={author} handleUrlChange={handleUrlChange} url={url} setCreateBlogVisible={setCreateBlogVisible} />
     </div>
 
     <div style={hideWhenVisible}>
