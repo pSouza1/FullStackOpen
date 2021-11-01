@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import blogService from '../services/blogs'
 import '../App.css'
 
-const Blog = ({blog}) => {
+const Blog = ({blog, handleDeleteButton}) => {
 
   const [blogVisible, setBlogVisible] = useState(false)
   const [blogObject, setBlogObject] = useState(blog)
@@ -34,7 +34,8 @@ if (blogVisible===(false)){
       {blog.title} <button onClick={() => setBlogVisible(false)}>hide</button> <br/>
       {blog.url} <br/>
       {blogObject.likes} <button onClick={handleLikeButton}>like</button><br/>
-      {blog.author}
+      {blog.author}<br/>
+      <button onClick={()=>handleDeleteButton(blog.id)}>delete</button>
     </div>
   )
 }

@@ -105,6 +105,16 @@ const App = () => {
     setUrl(event.target.value)
   }
 
+  const handleDeleteButton = async (id) => {
+    const blog = blogs.find(b => b.id === id)
+    
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)){
+      await blogService.deleteIndex(id)
+
+      setBlogs(blogs.filter(blog => blog.id !== id))
+      }
+  }
+
   const hideWhenVisible = { display: createBlogVisible ? 'none' : '' }
   const showWhenVisible = { display: createBlogVisible ? '' : 'none' }
 
@@ -124,7 +134,7 @@ const App = () => {
 
       <div>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog}/>
+        <Blog key={blog.id} blog={blog} handleDeleteButton={handleDeleteButton}/>
       )}
       </div>
 

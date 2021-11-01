@@ -21,7 +21,6 @@ const create = async newObject => {
   return request.data
 }
 
-
 const update = async (id, newObject) => {
     const config = {
     headers: { 'Authorization': token },
@@ -31,10 +30,22 @@ const update = async (id, newObject) => {
   return request.data;
 };
 
+const deleteIndex = async (id) => {
+  const config = {
+    headers: { 'Authorization': token },
+  }
+
+  console.log(id)
+  const request = await axios.delete(`${baseUrl}/${id}`, config)
+  return request.data;
+};
+
+
 
 export default { 
   getAll,
   create,
   setToken,
-  update
+  update,
+  deleteIndex
 }
