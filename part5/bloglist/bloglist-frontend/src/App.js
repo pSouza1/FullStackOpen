@@ -51,7 +51,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -107,6 +107,8 @@ const App = () => {
 
   const hideWhenVisible = { display: createBlogVisible ? 'none' : '' }
   const showWhenVisible = { display: createBlogVisible ? '' : 'none' }
+
+  blogs.sort((secondItem, firstItem) => firstItem.likes - secondItem.likes)
 
   
   const blogList = () => (
