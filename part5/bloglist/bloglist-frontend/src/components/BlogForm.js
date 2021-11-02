@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const BlogForm = (props) => {
   return (
@@ -18,7 +18,7 @@ const BlogForm = (props) => {
       </form>
       <button onClick={() => props.setCreateBlogVisible(false)}>cancel</button>
     </div>
-  );
-};
+  )
+}
 
-export default BlogForm;
+export default BlogForm

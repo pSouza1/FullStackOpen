@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
-import loginService from './services/login' 
+import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/Login'
 import BlogForm from './components/BlogForm'
@@ -13,25 +13,25 @@ const App = () => {
 
   const [notificationMessage, setNotificationMessage] = useState(null)
 
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const [user, setUser] = useState(null)
 
-  const [title, setTitle] = useState("")
-  const [author, setAuthor] = useState("")
-  const [url, setUrl] = useState("")
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
 
   const [createBlogVisible, setCreateBlogVisible] = useState(false)
-  
+
 
   const addBlog = async (event) => {
     event.preventDefault()
 
     const blogObject = {
-      "title": title,
-      "author": author,
-      "url": url
+      'title': title,
+      'author': author,
+      'url': url
     }
 
     try{
@@ -74,7 +74,7 @@ const App = () => {
 
       window.localStorage.setItem(
         'loggedBloglistUser', JSON.stringify(user)
-      ) 
+      )
 
       setUser(user)
       setUsername('')
@@ -107,12 +107,12 @@ const App = () => {
 
   const handleDeleteButton = async (id) => {
     const blog = blogs.find(b => b.id === id)
-    
+
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)){
       await blogService.deleteIndex(id)
 
       setBlogs(blogs.filter(blog => blog.id !== id))
-      }
+    }
   }
 
   const hideWhenVisible = { display: createBlogVisible ? 'none' : '' }
@@ -120,29 +120,29 @@ const App = () => {
 
   blogs.sort((secondItem, firstItem) => firstItem.likes - secondItem.likes)
 
-  
+
   const blogList = () => (
     <div>
       <h2>blogs</h2>
 
       <p>{user.name} logged in
-      <button onClick={handleLogout} type="submit">logout</button></p>
+        <button onClick={handleLogout} type="submit">logout</button></p>
 
       <p style={hideWhenVisible}>
-      <button onClick={() => setCreateBlogVisible(true)}>create new blog</button>
+        <button onClick={() => setCreateBlogVisible(true)}>create new blog</button>
       </p>
 
       <div>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} handleDeleteButton={handleDeleteButton}/>
-      )}
+        {blogs.map(blog =>
+          <Blog key={blog.id} blog={blog} handleDeleteButton={handleDeleteButton}/>
+        )}
       </div>
 
       <div style={showWhenVisible}>
-      <BlogForm addBlog={addBlog} handleTitleChange={handleTitleChange} title={title} handleAuthorChange={handleAuthorChange} author={author} handleUrlChange={handleUrlChange} url={url} setCreateBlogVisible={setCreateBlogVisible} />
+        <BlogForm addBlog={addBlog} handleTitleChange={handleTitleChange} title={title} handleAuthorChange={handleAuthorChange} author={author} handleUrlChange={handleUrlChange} url={url} setCreateBlogVisible={setCreateBlogVisible} />
       </div>
 
-    </div>   
+    </div>
   )
 
   return (

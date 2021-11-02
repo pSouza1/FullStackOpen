@@ -13,7 +13,7 @@ const getAll = () => {
 }
 
 const create = async newObject => {
-    const config = {
+  const config = {
     headers: { 'Authorization': token },
   }
 
@@ -22,13 +22,13 @@ const create = async newObject => {
 }
 
 const update = async (id, newObject) => {
-    const config = {
+  const config = {
     headers: { 'Authorization': token },
   }
 
-  const request = await axios.put(`${baseUrl}/${id}`, newObject, config);
-  return request.data;
-};
+  const request = await axios.put(`${baseUrl}/${id}`, newObject, config)
+  return request.data
+}
 
 const deleteIndex = async (id) => {
   const config = {
@@ -37,12 +37,12 @@ const deleteIndex = async (id) => {
 
   console.log(id)
   const request = await axios.delete(`${baseUrl}/${id}`, config)
-  return request.data;
-};
+  return request.data
+}
 
 
 
-export default { 
+export default {
   getAll,
   create,
   setToken,
