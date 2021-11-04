@@ -32,13 +32,13 @@ const Blog = ({ blog, handleDeleteButton }) => {
   }else{
     return(
       <div className="blogBorder">
-
-        {blog.title} <button onClick={() => setBlogVisible(false)}>hide</button> <br/>
-        {blog.url} <br/>
-        {blogObject.likes} <button onClick={handleLikeButton}>like</button><br/>
-        {blog.author}<br/>
-        <button onClick={() => handleDeleteButton(blog.id)}>delete</button>
-
+        <div className='showAll'>
+          {blog.title} <button onClick={() => setBlogVisible(false)}>hide</button> <br/>
+          {blog.url} <br/>
+          {blogObject.likes} <button onClick={handleLikeButton}>like</button><br/>
+          {blog.author}<br/>
+          <button onClick={() => handleDeleteButton(blog.id)}>delete</button>
+        </div>
       </div>
     )
   }

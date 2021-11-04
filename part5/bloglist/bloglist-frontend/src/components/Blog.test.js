@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import Blog from './Blog'
@@ -21,4 +21,20 @@ test('default view, only render title and author', () => {
   expect(blogTitle).toBeDefined()
   expect(blogTitle).toHaveTextContent('Great developer experience')
   expect(blogTitle).toHaveTextContent('Superuser')
+})
+
+test('view button, and can see blog detail', () => {
+  const component = render(
+    <Blog blog={blog} mockHandler />
+  )
+
+  const button = component.getByText('view')
+  fireEvent.click(button)
+
+
+  const showAll = component.container.querySelector('.showAll')
+
+  expect(showAll).toBeVisible()
+  expect(showAll).toHaveTextContent('https://jestjs.io/blog/2017/01/30/a-great-developer-experience')
+  expect(showAll).toHaveTextContent('21')
 })
