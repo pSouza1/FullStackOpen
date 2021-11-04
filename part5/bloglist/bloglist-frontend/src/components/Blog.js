@@ -24,17 +24,21 @@ const Blog = ({ blog, handleDeleteButton }) => {
   if (blogVisible===(false)){
     return(
       <div className="blogBorder">
-        {blog.title} by {blog.author} <button onClick={() => setBlogVisible(true)}>view</button>
+        <div className='blogAuthorTitle'>
+          {blog.title} by {blog.author} <button onClick={() => setBlogVisible(true)}>view</button>
+        </div>
       </div>
     )
   }else{
     return(
       <div className="blogBorder">
+
         {blog.title} <button onClick={() => setBlogVisible(false)}>hide</button> <br/>
         {blog.url} <br/>
         {blogObject.likes} <button onClick={handleLikeButton}>like</button><br/>
         {blog.author}<br/>
         <button onClick={() => handleDeleteButton(blog.id)}>delete</button>
+
       </div>
     )
   }
