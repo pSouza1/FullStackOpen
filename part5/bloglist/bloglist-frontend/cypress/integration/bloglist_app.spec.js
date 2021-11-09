@@ -87,4 +87,3 @@ describe('When logged in', function() {
   })
 })
 
-

@@ -25,7 +25,7 @@ const Blog = ({ blog, handleDeleteButton }) => {
     return(
       <div className="blogBorder">
         <div className='blogAuthorTitle'>
-          {blog.title} by {blog.author} <button onClick={() => setBlogVisible(true)}>view</button>
+          {blog.title} by {blog.author} <button onClick={() => setBlogVisible(true)} id="view">view</button>
         </div>
       </div>
     )
