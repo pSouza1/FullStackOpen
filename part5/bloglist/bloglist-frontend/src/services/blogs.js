@@ -17,8 +17,6 @@ const create = async newObject => {
     headers: { 'Authorization': token },
   }
 
-  console.log(token)
-
   const request = await axios.post(baseUrl, newObject, config)
   return request.data
 }
@@ -37,7 +35,6 @@ const deleteIndex = async (id) => {
     headers: { 'Authorization': token },
   }
 
-  console.log(id)
   const request = await axios.delete(`${baseUrl}/${id}`, config)
   return request.data
 }

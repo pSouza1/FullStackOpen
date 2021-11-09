@@ -35,6 +35,7 @@ describe('Login', function () {
     cy.get('input:first').type('user123')
     cy.get('input:last').type('pass123')
     cy.contains('login').click()
+    cy.contains('Wrong')
   })
 })
 
@@ -60,4 +61,30 @@ describe('When logged in', function() {
     cy.contains('added')
 
   })
+
+  it('Can like a post', function() {
+
+    cy.contains('view').click()
+
+    cy.contains('like').click()
+    cy.contains('1')
+    cy.contains('like').click()
+    cy.contains('2')
+    cy.contains('like').click()
+    cy.contains('3')
+  })
+
+  it('Can delete a post', function() {
+
+    cy.contains('view').click()
+    cy.contains('TesteT')
+
+    cy.contains('delete').click()
+
+    cy.contains('TesteT').should('not.exist')
+
+
+  })
 })
+
+
