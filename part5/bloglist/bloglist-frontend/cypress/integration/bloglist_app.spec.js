@@ -37,3 +37,27 @@ describe('Login', function () {
     cy.contains('login').click()
   })
 })
+
+
+describe('When logged in', function() {
+  beforeEach(function() {
+
+    cy.visit('http://localhost:3000')
+    cy.get('input:first').type('userTest')
+    cy.get('input:last').type('passTest')
+    cy.contains('login').click()
+
+  })
+
+  it('A blog can be created', function() {
+    cy.contains('create new blog').click()
+    cy.get('#user').type('TesteT')
+    cy.get('#pass').type('TesteA')
+    cy.get('#url').type('www.testeurl.com')
+
+    cy.get('#create').click()
+
+    cy.contains('added')
+
+  })
+})
