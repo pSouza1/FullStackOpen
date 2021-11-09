@@ -82,8 +82,6 @@ describe('When logged in', function() {
     cy.contains('delete').click()
 
     cy.contains('TesteT').should('not.exist')
-
-
   })
 })
 
