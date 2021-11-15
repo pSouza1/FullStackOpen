@@ -24,12 +24,16 @@ const reducer = (state = initialState, action) => {
   console.log('action', action)
 
   switch(action.type) {
-    case 'vote':
+    case 'VOTE':
       return state.map(x => x.id !== action.id ? x : {...x, votes: x.votes+1})
+
+    case 'NEW_ANECDOTE':
+      return [...state, action.data]
 
     default:
       return state
   }
 }
 
+export {asObject}
 export default reducer
