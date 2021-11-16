@@ -17,6 +17,14 @@ const asObject = (anecdote) => {
   }
 }
 
+const vote = (id) => ({
+  'type': 'VOTE',
+  'id': id })
+
+const create = (content) => ({
+  'type': 'NEW_ANECDOTE',
+  'data': asObject(content.target.content.value) })
+
 const initialState = anecdotesAtStart.map(asObject)
 
 const reducer = (state = initialState, action) => {
@@ -35,5 +43,5 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-export {asObject}
+export { vote, create }
 export default reducer
