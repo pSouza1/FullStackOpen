@@ -18,6 +18,7 @@ const AnecdoteList = () => {
 
   const sortedAnecdotes = [...anecdotes].sort((a, b) => {
     return b.votes - a.votes;
+    console.log(sortedAnecdotes)
   })
 
   const dispatch = useDispatch()
