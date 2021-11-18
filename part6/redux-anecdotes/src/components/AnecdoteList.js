@@ -6,7 +6,15 @@ import { notify, stop } from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
 
-  const anecdotes = useSelector((state) => state.anecdotes);
+  const anecdotes = useSelector(({ filter, anecdotes }) => {
+    let res = anecdotes
+    if (filter) {
+      res = anecdotes.filter(anecdote =>
+        anecdote.content.includes(filter))
+    }
+    return res
+  })
+
 
   const sortedAnecdotes = [...anecdotes].sort((a, b) => {
     return b.votes - a.votes;
@@ -15,9 +23,8 @@ const AnecdoteList = () => {
   const dispatch = useDispatch()
 
     const handleVote = (anecdote) => {
-    dispatch(vote(anecdote.id))
     dispatch(notify(`You voted '${anecdote.content}'`))
-    setTimeout(() => dispatch(stop()), 3000)
+    setTimeout(() => dispatch(stop()), 5000)
   }
 
   const voteAnecdote = (id) => {
