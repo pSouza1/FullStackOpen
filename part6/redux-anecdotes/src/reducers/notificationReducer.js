@@ -11,16 +11,26 @@ const reducer = (state = null, action) => {
     }
   }
 
-  const notify = (message) => ({
+  const setNotification = (message) => ({
     'type': 'NOTIFY',
     'data': {message}
   })
 
-  const stop = () => ({
+  const clearNotification = () => ({
     'type': 'STOP',
     'data': ""
   })
 
 
-  export {notify, stop}
+  const notify = (message, timer = 3) => {
+    return async dispatch => {
+      await dispatch(setNotification(message))
+      setTimeout(
+        async () => await dispatch(clearNotification()),
+        timer * 1000
+      )
+    }
+  }
+
+  export { notify }
   export default reducer
