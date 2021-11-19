@@ -1,7 +1,14 @@
-const vote = (id) => ({
-  'type': 'VOTE',
-  'id': id })
+import service from '../services/anecdotes'
 
+const vote = (anecdote) => {
+  return async dispatch => {
+    const data = await service.updateVotes(anecdote)
+    dispatch({
+      'type': 'VOTE',
+      'id': anecdote.id
+    })
+  }
+}
 
   const initialize = (anecdotes) => ({
     'type': 'INIT',

@@ -28,9 +28,9 @@ const AnecdoteList = () => {
     setTimeout(() => dispatch(stop()), 5000)
   }
 
-  const voteAnecdote = (id) => {
-    console.log("VOTE", id);
-    dispatch(vote(id))
+  const voteAnecdote = (anecdote) => {
+    console.log("VOTE", anecdote);
+    dispatch(vote(anecdote))
   }
 
 
@@ -45,7 +45,7 @@ const AnecdoteList = () => {
 
           <div>
             has {anecdote.votes}
-            <button onClick={() => voteAnecdote(anecdote.id)+handleVote(anecdote)}>vote</button>
+            <button onClick={() => voteAnecdote(anecdote)+handleVote(anecdote)}>vote</button>
           </div>
         </div>
       )
