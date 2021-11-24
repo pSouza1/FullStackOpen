@@ -56,6 +56,11 @@ const CreateNew = (props) => {
   const history = useHistory()
   const [notification, setNotification] = useState('')
 
+  const reset = () => {
+    content.reset()
+    author.reset()
+    info.reset()
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -79,7 +84,7 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input {...content} />
+          <input type={content.type} value={content.value} onChange={content.onChange} />
         </div>
         <div>
           author
